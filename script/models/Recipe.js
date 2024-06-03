@@ -4,7 +4,7 @@ class Recipe {
         this._image = data.image;
         this._name = data.name;
         this._servings = data.servings;
-        this._ingredients = data.ingredients;
+        this._ingredients = data.ingredients.map(ingredient => new Ingredient(ingredient));
         this._time = data.time;
         this._description = data.description;
         this._appliance = data.appliance;
@@ -107,12 +107,9 @@ class Recipe {
         const ul = document.createElement('ul');
         ul.classList.add('grid', 'grid-cols-2', 'gap-x-7', 'text-xs', '*:flex', '*:flex-col', '*:py-2');
 
-        // TODO make another loop and test it
-        /*
         this.ingredients.map(ingredient => {
             ul.appendChild(ingredient.getIngredientItemListTemplateCardDom());
         })
-         */
 
         listDiv.appendChild(listH3);
         listDiv.appendChild(ul);
