@@ -84,5 +84,9 @@ inputFormFilters.forEach(filter => {
     })
     clearInputButton.addEventListener('click', (e) => {
         clearInputButton.classList.add('invisible');
+        input.value = '';
+        fillIngredientsDropdownList(filterList(filteredIngredients, ingredientsDropdownFilterInput.value));
+        fillAppareilsDropdownList([...filterList(filteredAppareils, appareilsDropdownFilterInput.value)]);
+        fillUstensilesDropdownList(filterList(filteredUstensiles, ustensilesDropdownFilterInput.value));
     })
 });

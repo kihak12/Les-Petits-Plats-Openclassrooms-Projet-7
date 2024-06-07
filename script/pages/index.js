@@ -16,8 +16,8 @@ const displayRecipes = (recipes) => {
     console.log(recipes);
 
     const selectedIngredients = filteredIngredients.filter(ingredient => ingredient.isSelected).map(selectedIngredient => selectedIngredient.name);
-    const selectedAppareils = filteredAppareils.filter(ingredient => ingredient.isSelected);
-    const selectedUstensiles = filteredUstensiles.filter(ingredient => ingredient.isSelected);
+    const selectedAppareils = filteredAppareils.filter(appareil => appareil.isSelected).map(selectedAppareil => selectedAppareil.name);
+    const selectedUstensiles = filteredUstensiles.filter(ustensile => ustensile.isSelected).map(selectedUstensile => selectedUstensile.name);
 
     console.log('selectedIngredients', selectedIngredients);
     console.log('selectedAppareils', selectedAppareils);
@@ -30,7 +30,8 @@ const displayRecipes = (recipes) => {
     console.log(filteredRecipes);
     console.log('');
 
-    filteredRecipes.forEach(recipe => recipeListDom.appendChild(recipe.getTemplateCardDom()));
+    // filteredRecipes.forEach(recipe => recipeListDom.appendChild(recipe.getTemplateCardDom()));
+    recipes.forEach(recipe => recipeListDom.appendChild(recipe.getTemplateCardDom()));
 }
 
 let filteredRecipes = [];
@@ -62,7 +63,7 @@ const fillDropdowns = (recipes) => {
 
     fillIngredientsDropdownList(filteredIngredients);
     document.addEventListener('dropdownIngredientEntryChange', () => {
-        fillIngredientsDropdownList(filterList(filteredIngredients, ingredientsDropdownFilterInput.value));
+        fillIngredientsDropdownList([...filterList(filteredIngredients, ingredientsDropdownFilterInput.value)]);
         displayRecipes(filteredRecipes);
     });
 
@@ -74,7 +75,7 @@ const fillDropdowns = (recipes) => {
 
     fillUstensilesDropdownList(filteredUstensiles);
     document.addEventListener('dropdownUstensilesEntryChange', () => {
-        fillUstensilesDropdownList(filterList(filteredUstensiles, ustensilesDropdownFilterInput.value));
+        fillUstensilesDropdownList([...filterList(filteredUstensiles, ustensilesDropdownFilterInput.value)]);
         displayRecipes(filteredRecipes);
     });
 }
