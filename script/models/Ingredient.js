@@ -1,6 +1,6 @@
 class Ingredient {
     constructor(data) {
-        this._ingredient = data.ingredient;
+        this._ingredient = data.ingredient.toLowerCase();
         this._quantity = data.quantity;
         this._unit = data.unit;
     }
@@ -24,7 +24,7 @@ class Ingredient {
     getIngredientItemListTemplateCardDom = () => {
         const li = document.createElement('li');
         const ingredientSpan = document.createElement('span');
-        ingredientSpan.classList.add('font-medium');
+        ingredientSpan.classList.add('font-medium', 'first-letter:uppercase');
         ingredientSpan.textContent = this.ingredient;
 
         const ingredientUnitSpan = document.createElement('span');
