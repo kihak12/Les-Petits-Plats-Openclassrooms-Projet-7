@@ -28,7 +28,7 @@ mainSearchBar.querySelector('button[type=reset]').addEventListener('click', () =
 const resetRecipesData = () => {
     clearSelectedDropdownFieldsListDisplay();
     fillDropdowns(filteredRecipes, [selectedIngredientsInFilter, selectedAppareilsInFilter, selectedUstensilesInFilter]);
-    displayRecipes(filteredRecipes);
+    displayRecipes(filteredRecipes, '');
 };
 
 // Number of recipes displayed in the list
@@ -45,11 +45,11 @@ let selectedIngredientsInFilter = [];
 let selectedAppareilsInFilter = [];
 let selectedUstensilesInFilter = [];
 
-const displayRecipes = (recipes) => {
+const displayRecipes = (recipes, terms = '') => {
     recipeListDom.innerHTML = '';
 
     const filteredRecipes = recipes.filter(recipe =>
-        (recipe.name.toLowerCase().includes(mainSearchBarInput.value.toLowerCase()) || recipe.description.toLowerCase().includes(mainSearchBarInput.value.toLowerCase())) &&
+        (recipe.name.toLowerCase().includes(terms) || recipe.description.toLowerCase().includes(terms)) &&
         selectedIngredientsInFilter.every(ingredient => recipe.ingredients.map(recipeIngredient => recipeIngredient.ingredient).includes(ingredient)) &&
         selectedAppareilsInFilter.every(appareil => recipe.appliance.toLowerCase() === appareil) &&
         selectedUstensilesInFilter.every(ustensile => recipe.ustensils.includes(ustensile))
@@ -105,21 +105,26 @@ const filterDropdownList = (list, expected) => {
 }
 
 const fillDropdowns = (recipes, [lastIngredients, lastAppareils, lastUstensiles ] = [[], [], []]) => {
-    sortedIngredients =
-        [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase())).flat())]
-            .map(ingredient => new DropdownEntry(ingredient, "Ingredient", lastIngredients.includes(ingredient)))
-            .sort((ingredient1, ingredient2) => ingredient1.name > ingredient2.name ? 1 : -1);
+    if (recipes.length === 0) {
+        sortedIngredients = lastIngredients.map(ingredient => new DropdownEntry(ingredient, "Ingredient", true))
+        sortedAppareils = lastAppareils.map(appareil => new DropdownEntry(appareil, "Appareil", true))
+        sortedUstensiles = lastUstensiles.map(ustensile => new DropdownEntry(ustensile, "Ustensiles", true))
+    }else {
+        sortedIngredients =
+            [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase())).flat())]
+                .map(ingredient => new DropdownEntry(ingredient, "Ingredient", lastIngredients.includes(ingredient)))
+                .sort((ingredient1, ingredient2) => ingredient1.name > ingredient2.name ? 1 : -1);
 
-    sortedAppareils =
-        [...new Set(recipes.flatMap(recipe => recipe.appliance.toLowerCase()))]
-            .map(appareil => new DropdownEntry(appareil, "Appareil", lastAppareils.includes(appareil)))
-            .sort((appareil1, appareil2) => appareil1.name > appareil2.name ? 1 : -1);
+        sortedAppareils =
+            [...new Set(recipes.flatMap(recipe => recipe.appliance.toLowerCase()))]
+                .map(appareil => new DropdownEntry(appareil, "Appareil", lastAppareils.includes(appareil)))
+                .sort((appareil1, appareil2) => appareil1.name > appareil2.name ? 1 : -1);
 
-    sortedUstensiles =
-        [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ustensil => ustensil.toLowerCase()).flat()))]
-            .map(ustensile => new DropdownEntry(ustensile, "Ustensiles", lastUstensiles.includes(ustensile)))
-            .sort((ustensile1, ustensile2) => ustensile1.name > ustensile2.name ? 1 : -1);
-
+        sortedUstensiles =
+            [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ustensil => ustensil.toLowerCase()).flat()))]
+                .map(ustensile => new DropdownEntry(ustensile, "Ustensiles", lastUstensiles.includes(ustensile)))
+                .sort((ustensile1, ustensile2) => ustensile1.name > ustensile2.name ? 1 : -1);
+    }
 
     fillIngredientsDropdownList(sortedIngredients);
     document.addEventListener('dropdownIngredientEntryChange', () => {

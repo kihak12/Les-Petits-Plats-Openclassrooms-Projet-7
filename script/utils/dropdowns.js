@@ -70,8 +70,6 @@ ustensilesDropdownTriggerButton.addEventListener('click', (e) => {
 })
 
 const fillUstensilesDropdownList = (ustensiles) => {
-    ustensiles.forEach(ing => console.log(ing.name));
-    console.log()
     const ustensilesList = document.getElementById('ustensiles-list');
     const ustensilesSelectedList = document.getElementById('ustensiles-selected');
     ustensilesList.innerHTML = '';
@@ -126,7 +124,6 @@ const toggleDropdown = (dropdownName, dropdownFilterInput) => {
         case 'appareils':
             ingredientsDropdown.classList.remove('active');
             appareilsDropdown.classList.toggle('active');
-            console.log(dropdownFilterInput.value);
             appareilsDropdown.querySelector('button[type="reset"]').classList.add('invisible')
             ustensilesDropdown.classList.remove('active');
             document.querySelector('body').addEventListener('click', (e) => {
