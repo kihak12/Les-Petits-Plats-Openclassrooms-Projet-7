@@ -40,9 +40,15 @@ const getRecipes = async () => {
 
 const displayRecipes = (recipes) => {
     recipeListDom.innerHTML = '';
-    for (const recipe of recipes) {
-        recipeListDom.appendChild(recipe.getTemplateCardDom());
+
+    if (recipes.length === 0)  {
+        document.getElementById('empty-recipe-list').textContent = `Aucune recette ne contient ‘${getMainSearchBarInputValue()}’ vous pouvez chercher « tarte aux pommes », « poisson », ...`;
+    }else {
+        for (const recipe of recipes) {
+            recipeListDom.appendChild(recipe.getTemplateCardDom());
+        }
     }
+
     displayNumberOfRecipesInTheList(recipes.length);
 }
 
