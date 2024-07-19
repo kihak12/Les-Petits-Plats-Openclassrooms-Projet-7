@@ -1,6 +1,6 @@
 class Ingredient {
     constructor(data) {
-        this._ingredient = data.ingredient;
+        this._ingredient = data.ingredient.toLowerCase();
         this._quantity = data.quantity;
         this._unit = data.unit;
     }

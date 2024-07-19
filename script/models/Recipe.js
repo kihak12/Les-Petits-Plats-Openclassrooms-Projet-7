@@ -4,11 +4,21 @@ class Recipe {
         this._image = data.image;
         this._name = data.name;
         this._servings = data.servings;
-        this._ingredients = data.ingredients;
+        this._ingredients = [];
+
+        const sortedIngredients = sortArray(data.ingredients, 'ingredient');
+        for (const ingredient of sortedIngredients) {
+            this._ingredients.push(new Ingredient(ingredient));
+        }
         this._time = data.time;
         this._description = data.description;
         this._appliance = data.appliance;
-        this._ustensils = data.ustensils;
+        this._ustensils = []
+
+        const sortedUstensils = sortArray(data.ustensils, '', false)
+        for (const ustensile of sortedUstensils) {
+            this._ustensils.push(ustensile.toLowerCase());
+        }
     }
 
     get id() {
@@ -107,12 +117,9 @@ class Recipe {
         const ul = document.createElement('ul');
         ul.classList.add('grid', 'grid-cols-2', 'gap-x-7', 'text-xs', '*:flex', '*:flex-col', '*:py-2');
 
-        // TODO make another loop and test it
-        /*
-        this.ingredients.map(ingredient => {
+        for (const ingredient of this.ingredients) {
             ul.appendChild(ingredient.getIngredientItemListTemplateCardDom());
-        })
-         */
+        }
 
         listDiv.appendChild(listH3);
         listDiv.appendChild(ul);
