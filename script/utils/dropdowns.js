@@ -102,6 +102,7 @@ inputFormFilters.forEach(filter => {
     })
     clearInputButton.addEventListener('click', (e) => {
         clearInputButton.classList.add('invisible');
+        mainSearchBarInput.value = '';
         clearSelectedDropdownFieldsListDisplay();
         fillIngredientsDropdownList([...filterDropdownList(sortedIngredients, '')]);
         fillAppareilsDropdownList([...filterDropdownList(sortedAppareils, '')]);

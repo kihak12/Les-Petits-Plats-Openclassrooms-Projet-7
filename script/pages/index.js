@@ -182,10 +182,9 @@ const getDropdownsFilterByRecipes = (recipes) => {
             }
         }
     }
-
-    console.log(selectedIngredientsInFilter);
     return [sortArray(sortedIngredients5, 'name'), sortArray(sortedAppareils5, 'name'), sortArray(sortedUstensiles5, 'name')]
 }
+
 const fillDropdowns = (recipes) => {
     [sortedIngredients, sortedAppareils, sortedUstensiles] = getDropdownsFilterByRecipes(recipes);
 
