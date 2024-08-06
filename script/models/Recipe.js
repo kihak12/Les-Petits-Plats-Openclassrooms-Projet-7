@@ -30,7 +30,7 @@ class Recipe {
     }
 
     get imageLink() {
-        return `/assets/images/${this._image}`;
+        return `./assets/images/${this._image}`;
     }
 
     get name() {
