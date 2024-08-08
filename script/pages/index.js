@@ -44,6 +44,7 @@ const displayRecipes = (recipes) => {
     if (recipes.length === 0)  {
         document.getElementById('empty-recipe-list').textContent = `Aucune recette ne contient ‘${getMainSearchBarInputValue()}’ vous pouvez chercher « tarte aux pommes », « poisson », ...`;
     }else {
+        document.getElementById('empty-recipe-list').textContent = '';
         for (const recipe of recipes) {
             recipeListDom.appendChild(recipe.getTemplateCardDom());
         }
